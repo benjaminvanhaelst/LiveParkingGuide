@@ -1,15 +1,9 @@
-package be.gent.liveparkingguide.webservices
+package be.gent.liveparkingguide.extensions
 
 import be.gent.liveparkingguide.BuildConfig
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import okhttp3.logging.HttpLoggingInterceptor.Level.*
-
-
-/**
- * Created by bvanhaelst
- */
-
 
 fun OkHttpClient.Builder.addLoggingIfDebug(
         level: HttpLoggingInterceptor.Level = BASIC

@@ -20,7 +20,7 @@ data class Parking(
 //  @SerializedName("capacityRounding")               val capacityRounding        : Int,
     @SerializedName("totalCapacity")            val totalCapacity           : Int,
     @SerializedName("openingTimes")             val openingTimes            : List<OpeningTime>,
-    @SerializedName("parkingStatus")            val parkingStatus           : ParkingStatus,
+    @SerializedName("parkingStatus")            val status                  : ParkingStatus,
     @SerializedName("blurAvailability")         val blurAvailability        : Boolean
 )
 
