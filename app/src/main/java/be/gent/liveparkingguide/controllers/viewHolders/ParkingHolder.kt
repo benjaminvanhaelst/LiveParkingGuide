@@ -24,7 +24,7 @@ class ParkingHolder( val view: View ) : RecyclerView.ViewHolder(view) {
         val red     = (((parking.totalCapacity - parking.status.availableCapacity).toFloat() / parking.totalCapacity.toFloat()) * 255).roundToInt()
         tv_free_places.backgroundColor = Color.rgb( red, green, 0)
 
-        onClick { onItemClick(parking) }
+        ll_holder.onClick { onItemClick(parking) }
 
     }
 }

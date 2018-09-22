@@ -1,9 +1,10 @@
 package be.gent.liveparkingguide.model
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import kotlinx.android.parcel.Parcelize
 
 
-
-
+@Parcelize
 data class Parking(
     @SerializedName("id")                       val id                      : Int,
     @SerializedName("lastModifiedDate")         val lastModifiedDate        : String,
@@ -22,14 +23,16 @@ data class Parking(
     @SerializedName("openingTimes")             val openingTimes            : List<OpeningTime>,
     @SerializedName("parkingStatus")            val status                  : ParkingStatus,
     @SerializedName("blurAvailability")         val blurAvailability        : Boolean
-)
+) : Parcelable
 
+@Parcelize
 data class OpeningTime(
     @SerializedName("days")                     val days                    : List<Day>,
     @SerializedName("from")                     val from                    : String,
     @SerializedName("to")                       val to                      : String
-)
+) : Parcelable
 
+@Parcelize
 data class ParkingStatus(
     @SerializedName("availableCapacity")        val availableCapacity       : Int,
     @SerializedName("totalCapacity")            val totalCapacity           : Int,
@@ -37,7 +40,7 @@ data class ParkingStatus(
 //  @SerializedName("suggestedCapacity")              val suggestedCapacity       : String,
 //  @SerializedName("activeRoute")                    val activeRoute             : String,
     @SerializedName("lastModifiedDate")         val lastModifiedDate        : String
-)
+) : Parcelable
 
 enum class Day {
     @SerializedName("MONDAY")       MONDAY,

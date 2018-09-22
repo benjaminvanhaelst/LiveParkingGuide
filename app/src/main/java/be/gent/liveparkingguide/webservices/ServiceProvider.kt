@@ -12,11 +12,7 @@ import retrofit2.converter.gson.GsonConverterFactory
  */
 object ServiceProvider {
 
-
-    fun provideGson() : Gson
-            = Gson()
-
-    fun provideClient() : OkHttpClient
+    private fun provideClient() : OkHttpClient
             = OkHttpClient.Builder()
             .addLoggingIfDebug(BODY)
             .build()
@@ -25,6 +21,6 @@ object ServiceProvider {
             = Retrofit.Builder()
             .baseUrl("https://datatank.stad.gent/4/mobiliteit/")
             .client(provideClient())
-            .addConverterFactory(GsonConverterFactory.create(provideGson()))
+            .addConverterFactory(GsonConverterFactory.create(Gson()))
             .build().create(ParkingsRealtime::class.java)
 }
