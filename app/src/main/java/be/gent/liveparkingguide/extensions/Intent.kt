@@ -2,8 +2,8 @@ package be.gent.liveparkingguide.extensions
 
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
-import org.jetbrains.anko.AnkoContext
 import org.jetbrains.anko.clearTop
 import org.jetbrains.anko.singleTop
 
@@ -16,11 +16,6 @@ inline fun <reified T : Any> android.support.v4.app.Fragment.launchActivity(
     activity?.launchActivity<T>(options, init)
 }
 
-inline fun <reified T : Any> AnkoContext<*>.launchActivity(
-        options: Bundle? = null,
-        noinline init: Intent.() -> Unit = {}) {
-    ctx.launchActivity<T>(options, init)
-}
 
 inline fun <reified T : Any> Context.launchActivity(
         options: Bundle? = null,
@@ -36,4 +31,10 @@ inline fun <reified T : Any> Context.launchActivity(
 
 inline fun <reified T : Any> newIntent(context: Context): Intent {
     return Intent(context, T::class.java)
+}
+
+fun  Context.navigateTo(address: String) {
+    val mapIntent = Intent(Intent.ACTION_VIEW, Uri.parse("google.navigation:q=$address"))
+    mapIntent.setPackage("com.google.android.apps.maps")
+    startActivity(mapIntent)
 }

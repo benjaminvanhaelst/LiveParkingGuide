@@ -1,29 +1,49 @@
 package be.gent.liveparkingguide.model
+import android.graphics.Color
 import android.os.Parcelable
+import com.google.android.gms.maps.model.LatLng
 import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize
+import kotlin.math.roundToInt
 
 
 @Parcelize
 data class Parking(
-    @SerializedName("id")                       val id                      : Int,
-    @SerializedName("lastModifiedDate")         val lastModifiedDate        : String,
-    @SerializedName("name")                     val name                    : String,
+    @SerializedName("id")                       private val id              : Int,
+    @SerializedName("lastModifiedDate")         private val lastModifiedDate: String,
+    @SerializedName("name")                     private val name            : String,
     @SerializedName("description")              val description             : String,
-    @SerializedName("latitude")                 val latitude                : Double,
-    @SerializedName("longitude")                val longitude               : Double,
+    @SerializedName("latitude")                 private val latitude        : Double,
+    @SerializedName("longitude")                private val longitude       : Double,
     @SerializedName("address")                  val address                 : String,
     @SerializedName("contactInfo")              val contactInfo             : String,
-//  @SerializedName("city")                           val city                    : City,
-//  @SerializedName("parkingServer")                  val parkingServer           : ParkingServer,
-//  @SerializedName("suggestedFreeThreshold")         val suggestedFreeThreshold  : Int,
-//  @SerializedName("suggestedFullThreshold")         val suggestedFullThreshold  : Int,
-//  @SerializedName("capacityRounding")               val capacityRounding        : Int,
-    @SerializedName("totalCapacity")            val totalCapacity           : Int,
+    @SerializedName("totalCapacity")            private val totalCapacity   : Int,
     @SerializedName("openingTimes")             val openingTimes            : List<OpeningTime>,
-    @SerializedName("parkingStatus")            val status                  : ParkingStatus,
-    @SerializedName("blurAvailability")         val blurAvailability        : Boolean
-) : Parcelable
+    @SerializedName("parkingStatus")            private val status          : ParkingStatus,
+    @SerializedName("blurAvailability")         private val blurAvailability: Boolean
+) : Parcelable {
+
+    val position : LatLng
+            get() = LatLng(latitude,longitude)
+
+    val availableCapacity
+            get() = status.availableCapacity
+
+    private val usedCapacity : Int
+            get() = with(status) { totalCapacity - availableCapacity }
+
+    private fun Int.tocolor() : Int
+            = (toFloat() / totalCapacity.toFloat() * 255).roundToInt()
+
+
+    fun capacityColor() : Int = with(status) {
+        val red     = usedCapacity      .tocolor()
+        val green   = availableCapacity .tocolor()
+        return Color.rgb(red, green, 0)
+    }
+
+
+}
 
 @Parcelize
 data class OpeningTime(
@@ -37,8 +57,6 @@ data class ParkingStatus(
     @SerializedName("availableCapacity")        val availableCapacity       : Int,
     @SerializedName("totalCapacity")            val totalCapacity           : Int,
     @SerializedName("open")                     val open                    : Boolean,
-//  @SerializedName("suggestedCapacity")              val suggestedCapacity       : String,
-//  @SerializedName("activeRoute")                    val activeRoute             : String,
     @SerializedName("lastModifiedDate")         val lastModifiedDate        : String
 ) : Parcelable
 

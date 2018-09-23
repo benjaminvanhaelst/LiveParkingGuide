@@ -12,8 +12,6 @@ import be.gent.liveparkingguide.extensions.start
 import be.gent.liveparkingguide.extensions.stop
 import kotlinx.android.synthetic.main.activity_main.*
 import org.jetbrains.anko.support.v4.onRefresh
-import android.content.Intent
-import android.net.Uri
 import be.gent.liveparkingguide.extensions.launchActivity
 
 
@@ -27,11 +25,6 @@ class MainActivity : AppCompatActivity() {
             launchActivity<MapActivity> {
                 putExtra(MapActivity.PARKING_EXTRA, parking)
             }
-            // todo
-
-            /*val mapIntent = Intent(Intent.ACTION_VIEW, Uri.parse("google.navigation:q=${parking.address}"))
-            mapIntent.setPackage("com.google.android.apps.maps")
-            startActivity(mapIntent)*/
         }
     }
 
