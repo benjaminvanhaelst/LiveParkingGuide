@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Live Parking Guide</string>
+    <string name="location_permission_rationale">Grant permission to order parking lots by proximity.</string>
 </resources>
